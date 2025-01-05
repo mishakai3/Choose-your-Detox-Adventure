@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Your Own Adventure</title>
+    <title>Choose Your Own Detox Plan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,7 +27,7 @@
     </style>
 </head>
 <body>
-    <h1>Choose Your Own Adventure</h1>
+    <h1>Choose Your Own Detox Plan</h1>
     <div id="question-container"></div>
     <button id="backButton">Go Back</button>
 
@@ -35,20 +35,22 @@
         document.addEventListener('DOMContentLoaded', () => {
             const questions = {
                 start: {
-                    text: "Where would you like to begin?",
+                    text: "How is your Kidney Health?",
                     options: [
-                        { text: "Start in the Forest", next: "forest" },
-                        { text: "Start in the Cave", next: "cave" }
+                        { text: "No lower back pain, aches or pressure", next: "How is your gut health" },
+                        { text: "Minimal lower back pressure and discomfort", next: "cave" }
+                        { text: "Lower back pressure and pain, frequent dehydration", next: "list" }
                     ]
                 },
-                forest: {
+                how is your gut health: {
                     text: "You are in a dark forest. What do you do?",
                     options: [
                         { text: "Explore deeper", next: "deep_forest" },
                         { text: "Head back", next: "start" }
                     ]
                 },
-                cave: {
+                list: {
+                    list: [Eucommia, Cordyceps, Hydration]
                     text: "You are in a damp cave. What do you do?",
                     options: [
                         { text: "Go deeper", next: "deep_cave" },
