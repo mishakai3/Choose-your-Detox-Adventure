@@ -37,17 +37,21 @@
                 start: {
                     text: "Where would you like to begin?",
                     options: [
-                        { text: "Kidneys", next: "forest" },
-                        { text: "Liver", next: "cave" }
+                        { text: "Kidneys", next: "Kidneys" },
+                        { text: "Liver", next: "Liver" }
                     ]
                 },
-                forest: {
-                    text: "You are in a dark forest. Here are some things you see:",
-                    list: ["A tall oak tree", "A running stream", "A hidden path"],
+                Kidneys: {
+                    text: "How are your Kidneys?:",
+                    options: [
+                        { text: "Good", next: "Good List" }
+                        { text: "Bad", next: "Bad List" }
                     back: "start"
+                    list: ["A tall oak tree", "A running stream", "A hidden path"],
+                    ]
                 },
-                cave: {
-                    text: "You are in a damp cave. What do you do?",
+                Liver: {
+                    text: "How is your Liver Health?",
                     options: [
                         { text: "Go deeper", next: "deep_cave" },
                         { text: "Head back", next: "start" }
