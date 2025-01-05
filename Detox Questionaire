@@ -32,85 +32,84 @@
     <button id="backButton">Go Back</button>
 
     <script>
-        // Define the question data as an object
-        const questions = {
-            start: {
-                text: "Where would you like to begin?",
-                options: [
-                    { text: "Start in the Forest", next: "forest" },
-                    { text: "Start in the Cave", next: "cave" }
-                ]
-            },
-            forest: {
-                text: "You are in a dark forest. What do you do?",
-                options: [
-                    { text: "Explore deeper", next: "deep_forest" },
-                    { text: "Head back", next: "start" }
-                ]
-            },
-            cave: {
-                text: "You are in a damp cave. What do you do?",
-                options: [
-                    { text: "Go deeper", next: "deep_cave" },
-                    { text: "Head back", next: "start" }
-                ]
-            },
-            deep_forest: {
-                text: "You find a treasure chest! Congratulations!",
-                options: []
-            },
-            deep_cave: {
-                text: "You encounter a dragon! Brave or foolish?",
-                options: []
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = {
+                start: {
+                    text: "Where would you like to begin?",
+                    options: [
+                        { text: "Start in the Forest", next: "forest" },
+                        { text: "Start in the Cave", next: "cave" }
+                    ]
+                },
+                forest: {
+                    text: "You are in a dark forest. What do you do?",
+                    options: [
+                        { text: "Explore deeper", next: "deep_forest" },
+                        { text: "Head back", next: "start" }
+                    ]
+                },
+                cave: {
+                    text: "You are in a damp cave. What do you do?",
+                    options: [
+                        { text: "Go deeper", next: "deep_cave" },
+                        { text: "Head back", next: "start" }
+                    ]
+                },
+                deep_forest: {
+                    text: "You find a treasure chest! Congratulations!",
+                    options: []
+                },
+                deep_cave: {
+                    text: "You encounter a dragon! Brave or foolish?",
+                    options: []
+                }
+            };
+
+            const questionContainer = document.getElementById("question-container");
+            const backButton = document.getElementById("backButton");
+
+            let historyStack = [];
+
+            function displayQuestion(key) {
+                const question = questions[key];
+                if (!question) return;
+
+                if (historyStack.length === 0 || historyStack[historyStack.length - 1] !== key) {
+                    historyStack.push(key);
+                }
+
+                backButton.style.display = historyStack.length > 1 ? "block" : "none";
+
+                questionContainer.innerHTML = "";
+
+                const questionText = document.createElement("p");
+                questionText.textContent = question.text;
+                questionText.className = "question";
+                questionContainer.appendChild(questionText);
+
+                question.options.forEach(option => {
+                    const button = document.createElement("button");
+                    button.textContent = option.text;
+                    button.onclick = () => displayQuestion(option.next);
+                    questionContainer.appendChild(button);
+                });
             }
-        };
 
-        const questionContainer = document.getElementById("question-container");
-        const backButton = document.getElementById("backButton");
+            backButton.onclick = () => {
+                if (historyStack.length > 1) {
+                    historyStack.pop();
+                    displayQuestion(historyStack[historyStack.length - 1]);
+                }
+            };
 
-        let historyStack = [];
-
-        // Function to display a question
-        function displayQuestion(key) {
-            const question = questions[key];
-            if (!question) return;
-
-            // Save the current question to history
-            if (historyStack.length === 0 || historyStack[historyStack.length - 1] !== key) {
-                historyStack.push(key);
-            }
-
-            // Show or hide the back button
-            backButton.style.display = historyStack.length > 1 ? "block" : "none";
-
-            // Clear the container
-            questionContainer.innerHTML = "";
-
-            // Display the question text
-            const questionText = document.createElement("p");
-            questionText.textContent = question.text;
-            questionText.className = "question";
-            questionContainer.appendChild(questionText);
-
-            // Display the options
-            question.options.forEach(option => {
-                const button = document.createElement("button");
-                button.textContent = option.text;
-                button.onclick = () => displayQuestion(option.next);
-                questionContainer.appendChild(button);
-            });
-        }
-
-        // Go back to the previous question
-        backButton.onclick = function () {
-            if (historyStack.length > 1) {
-                historyStack.pop();
-                displayQuestion(historyStack[historyStack.length - 1]);
-            }
-        };
-
-        // Start with the initial question
-        displayQuestion("start");
+            displayQuestion("start");
+        });
     </script>
 </body>
 </html>
+
+          
+          
+
+           
+    
