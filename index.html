@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Your Own Detox Plan</title>
+    <title>Choose Your Own Adventure</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,7 +27,7 @@
     </style>
 </head>
 <body>
-    <h1>Choose Your Own Detox Plan</h1>
+    <h1>Choose Your Own Adventure</h1>
     <div id="question-container"></div>
     <button id="backButton">Go Back</button>
 
@@ -35,31 +35,23 @@
         document.addEventListener('DOMContentLoaded', () => {
             const questions = {
                 start: {
-                    text: "How is your Kidney Health?",
+                    text: "Where would you like to begin?",
                     options: [
-                        { text: "No lower back pain, aches or pressure", next: "How is your gut health" },
-                        { text: "Minimal lower back pressure and discomfort", next: "cave" }
-                        { text: "Lower back pressure and pain, frequent dehydration", next: "list" }
+                        { text: "Start in the Forest", next: "forest" },
+                        { text: "Start in the Cave", next: "cave" }
                     ]
                 },
-                how is your gut health: {
-                    text: "You are in a dark forest. What do you do?",
-                    options: [
-                        { text: "Explore deeper", next: "deep_forest" },
-                        { text: "Head back", next: "start" }
-                    ]
+                forest: {
+                    text: "You are in a dark forest. Here are some things you see:",
+                    list: ["A tall oak tree", "A running stream", "A hidden path"],
+                    back: "start"
                 },
-                list: {
-                    list: [Eucommia, Cordyceps, Hydration]
+                cave: {
                     text: "You are in a damp cave. What do you do?",
                     options: [
                         { text: "Go deeper", next: "deep_cave" },
                         { text: "Head back", next: "start" }
                     ]
-                },
-                deep_forest: {
-                    text: "You find a treasure chest! Congratulations!",
-                    options: []
                 },
                 deep_cave: {
                     text: "You encounter a dragon! Brave or foolish?",
@@ -89,12 +81,22 @@
                 questionText.className = "question";
                 questionContainer.appendChild(questionText);
 
-                question.options.forEach(option => {
-                    const button = document.createElement("button");
-                    button.textContent = option.text;
-                    button.onclick = () => displayQuestion(option.next);
-                    questionContainer.appendChild(button);
-                });
+                if (question.options) {
+                    question.options.forEach(option => {
+                        const button = document.createElement("button");
+                        button.textContent = option.text;
+                        button.onclick = () => displayQuestion(option.next);
+                        questionContainer.appendChild(button);
+                    });
+                } else if (question.list) {
+                    const ul = document.createElement("ul");
+                    question.list.forEach(item => {
+                        const li = document.createElement("li");
+                        li.textContent = item;
+                        ul.appendChild(li);
+                    });
+                    questionContainer.appendChild(ul);
+                }
             }
 
             backButton.onclick = () => {
@@ -110,7 +112,10 @@
 </body>
 </html>
 
-          
+           
+                       
+            
+        
           
 
            
